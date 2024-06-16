@@ -4,15 +4,16 @@
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     # Sistem operasi Linux
     if command -v google-chrome > /dev/null; then
-        google-chrome "http://localhost:3000/d/k6/hasil-testing"
+        google-chrome --no-sandbox "http://localhost:3000/d/k6/hasil-testing"
     elif command -v chromium-browser > /dev/null; then
-        chromium-browser "http://localhost:3000/d/k6/hasil-testing"
+        chromium-browser --no-sandbox "http://localhost:3000/d/k6/hasil-testing"
     else
         echo "Google Chrome atau Chromium tidak ditemukan."
     fi
 else
     echo "Unsupported OS for opening URL."
 fi
+
 
 # docker compose up -d influxdb grafana
 # echo "--------------------------------------------------------------------------------------"
