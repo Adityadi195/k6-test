@@ -1,5 +1,8 @@
 pipeline {
   agent any
+   environment {
+        CHROMEDRIVER_PATH = "/path/to/chromedriver"
+    }
   stages {
     stage('Verify K6') {
       steps {
@@ -13,9 +16,6 @@ pipeline {
         echo "Running performance tests..."
         sh 'k6 run --out influxdb=http://influxdb:8086/k6 scripts/ewoks.js'
       }
-    }
-    environment {
-        CHROMEDRIVER_PATH = "/path/to/chromedriver"
     }
     stage('Run Selenium Tests') {
         steps {
