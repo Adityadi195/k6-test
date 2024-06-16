@@ -1,7 +1,7 @@
 pipeline {
   agent any
    environment {
-        CHROMEDRIVER_PATH = "/path/to/chromedriver"
+        CHROMEDRIVER_PATH = "/chromedriver"
     }
   stages {
     stage('Verify K6') {
