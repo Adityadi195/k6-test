@@ -1,7 +1,6 @@
 pipeline {
   agent any
   stages {
-    stage('Verify K6') {
       stage('Performance Testing') {
       steps {
         echo "Running performance tests..."
