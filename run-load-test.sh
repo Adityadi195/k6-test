@@ -4,6 +4,9 @@
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     # Sistem operasi Linux
     xdg-open "http://localhost:3000/d/k6/hasil-testing"
+else
+    echo "Unsupported OS for opening URL."
+fi
 # docker compose up -d influxdb grafana
 # echo "--------------------------------------------------------------------------------------"
 # echo "Load testing with Grafana dashboard http://localhost:3000/d/k6/k6-load-testing-results"
