@@ -11,7 +11,7 @@ pipeline {
     stage('Performance Testing') {
       steps {
         echo "Running performance tests..."
-        docker-compose run --rm k6 run /scripts/ewoks.js
+        sh 'k6 run --out influxdb=http://influxdb:8086/k6 scripts/ewoks.js'
       }
     }
   }
