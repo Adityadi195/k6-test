@@ -15,21 +15,9 @@ pipeline {
       steps {
         echo "Running performance tests..."
         sh 'k6 run --out influxdb=http://influxdb:8086/k6 scripts/ewoks.js'
+	sh './run-load-test.sh'
       }
     }
-    stage('Open URL') {
-            steps {
-                script {
-                    openshift.withCluster() {
-                        openshift.withProject() {
-                            openshift.withApplication("nama-aplikasi") {
-                                openshift.rsh("xdg-open http://localhost:3000/d/k6/hasil-testing")
-                            }
-                        }
-                    }
-             }
-     }
-}
   }
 }
  
