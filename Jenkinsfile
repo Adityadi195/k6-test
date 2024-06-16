@@ -3,10 +3,10 @@ pipeline {
   stages {
     stage('Verify K6') {
       steps {
-				echo 'Verifying K6...'
-        sh 'chmod +x setup_k6.sh'
-				sh './setup_k6.sh'
-      }
+                sh 'ls -l' // Tambahkan langkah ini untuk memeriksa isi direktori kerja saat build
+                sh 'chmod +x setup_k6.sh' // Pastikan bahwa setup_k6.sh dapat diakses
+                sh './setup_k6.sh' // Pastikan perintah ini sesuai dengan penggunaan setup_k6.sh Anda
+        }
     }
     stage('Performance Testing') {
       steps {
