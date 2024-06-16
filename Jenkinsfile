@@ -17,10 +17,7 @@ pipeline {
     stage('Open Grafana Dashboard') {
             steps {
                 script {
-                    def grafanaUrl = 'http://localhost:3000/d/k6/hasil-testing'
-                    echo "Grafana Dashboard: <a href='${grafanaUrl}'>Hasil Testing</a>"
-                    // Atau bisa juga menggunakan openUrl untuk langsung membuka tab baru di browser
-                    // openUrl(grafanaUrl)
+                    openBrowser('http://localhost:3000/d/k6/hasil-testing')
                 }
             }
         }
