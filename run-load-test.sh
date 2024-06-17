@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+apt-get install xsel
 text="$(xsel -o)"
 google-chrome --headless --disable-gpu --no-sandbox --remote-debugging-port=3000 "http://localhost:3000/d/k6/hasil-testing?orgId=1&refresh=5s"
 
