@@ -20,17 +20,6 @@ pipeline {
 	echo "http://localhost:3000/d/k6/hasil-testing?orgId=1&refresh=5s"
       }
     }
-    stage ('Open Browser') {
-	    steps {
-		script {
-		 from selenium import webdriver
-		 driver = webdriver.Chrome()
-		 driver.maximize_window()
-		
-		 driver.get("http://localhost:3000/d/k6/hasil-testing?orgId=1&refresh=5s")
-	    }
-	     }
-     }
   }
 }
  
