@@ -18,9 +18,26 @@ pipeline {
 	sh 'chmod +x run-load-test.sh'
 	// sh './run-load-test.sh'
 	sh 'google-chrome --headless --disable-gpu --no-sandbox --remote-debugging-port=3000 "$URL"'
-
       }
     }
+    stage('Run Google Chrome Headless') {
+            steps {
+                echo 'Running Google Chrome in headless mode...'
+                script {
+                    // Install necessary packages if not already installed
+                    sh '''
+                    sudo apt-get update
+                    sudo apt-get install -y google-chrome-stable
+                    sudo apt-get install -y dbus
+                    sudo service dbus start
+                    mkdir -p /tmp/Crashpad
+                    '''
+
+                    // Run Google Chrome in headless mode
+                    sh 'google-chrome --headless --disable-gpu --no-sandbox --remote-debugging-port=3000 "$URL"'
+                }
+            }
+        }
   }
 }
  
