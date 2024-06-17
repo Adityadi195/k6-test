@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
+
 text="$(xsel -o)"
-x-www-browser "http://localhost:3000/d/k6/hasil-testing?orgId=1&refresh=5s"
+google-chrome --headless --disable-gpu --no-sandbox --remote-debugging-port=3000 "http://localhost:3000/d/k6/hasil-testing?orgId=1&refresh=5s"
+
 
 # docker compose up -d influxdb grafana
 # echo "--------------------------------------------------------------------------------------"
