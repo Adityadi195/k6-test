@@ -20,7 +20,7 @@ pipeline {
 	echo "http://localhost:3000/d/k6/hasil-testing?orgId=1&refresh=5s"
       }
     }
-    stage('Performance Testing') {
+    stage ('Open Browser') {
 	    steps {
 		from selenium import webdriver
 		driver = webdriver.Chrome()
@@ -28,10 +28,7 @@ pipeline {
 		# Buka halaman web
 		driver.get("http://localhost:3000/d/k6/hasil-testing?orgId=1&refresh=5s")
 		
-		driver.quit()
-	    
 	    }
-
     }
   }
 }
