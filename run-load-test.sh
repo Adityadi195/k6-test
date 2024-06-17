@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 #!/bin/bash
 
 # Define the URL to open
