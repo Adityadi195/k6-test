@@ -1,7 +1,17 @@
 #!/usr/bin/env bash
-apt-get install xsel
-text="$(xsel -o)"
-google-chrome --headless --disable-gpu --no-sandbox --remote-debugging-port=3000 "http://localhost:3000/d/k6/hasil-testing?orgId=1&refresh=5s"
+
+#!/bin/bash
+
+# Define the URL to open
+URL="http://localhost:3000/d/k6/hasil-testing?orgId=1&refresh=5s"
+
+# Run Chromium in headless mode
+chromium-browser --headless --disable-gpu --no-sandbox --remote-debugging-port=9222 --window-size=1280x1024 "$URL"
+
+
+# apt-get install xsel
+# text="$(xsel -o)"
+# google-chrome --headless --disable-gpu --no-sandbox --remote-debugging-port=3000 "http://localhost:3000/d/k6/hasil-testing?orgId=1&refresh=5s"
 
 
 # docker compose up -d influxdb grafana
