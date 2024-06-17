@@ -1,18 +1,24 @@
 #!/bin/bash
 
-# Mendeteksi sistem operasi yang digunakan
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    # Sistem operasi Linux
-    if command -v google-chrome > /dev/null; then
-        google-chrome --headless --no-sandbox --disable-gpu --remote-debugging-port=9222 "http://localhost:3000/d/k6/hasil-testing"
-    elif command -v chromium-browser > /dev/null; then
-        chromium-browser --headless --no-sandbox --disable-gpu --remote-debugging-port=9222 "http://localhost:3000/d/k6/hasil-testing"
-    else
-        echo "Google Chrome atau Chromium tidak ditemukan."
-    fi
-else
-    echo "Unsupported OS for opening URL."
+# URL yang ingin dibuka
+URL="http://localhost:3000/d/k6/hasil-testing"
+
+# Memeriksa apakah Google Chrome terinstal
+if ! command -v google-chrome &> /dev/null
+then
+    echo "Google Chrome tidak ditemukan. Menginstal Google Chrome..."
+    
+    # Menambahkan kunci Google Chrome dan repo
+    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+    
+    # Memperbarui daftar paket dan menginstal Google Chrome
+    sudo apt-get update
+    sudo apt-get install -y google-chrome-stable
 fi
+
+# Membuka URL di Google Chrome
+google-chrome "$URL"
 
 
 
