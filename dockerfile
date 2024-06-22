@@ -1,21 +1,40 @@
-USER jenkins
-
-# Use the official Jenkins base image
 FROM jenkins/jenkins:latest
 
-# Switch to root user to install dependencies
 USER root
 
-# Install dependencies
-RUN apt-get update && \
-    apt-get install -y chromium-browser
+# Create the .gnupg directory, set ownership and permissions
+RUN mkdir -p /var/jenkins_home/.gnupg && \
+    chown -R jenkins:jenkins /var/jenkins_home/.gnupg && \
+    chmod 700 /var/jenkins_home/.gnupg
 
-# Switch back to the Jenkins user
+# Update the package list and install dirmngr
+RUN apt-get update && apt-get install -y dirmngr
+
+# Ensure jenkins user has correct permissions
+RUN chown -R jenkins:jenkins /var/jenkins_home/.gnupg && \
+    chmod -R 700 /var/jenkins_home/.gnupg
+
+# Clean up APT when done
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Switch back to Jenkins user
 USER jenkins
 
-# Copy the script to run Chromium
-COPY run_chromium.sh /usr/local/bin/run_chromium.sh
-RUN chmod +x /usr/local/bin/run_chromium.sh
 
-# Start Jenkins
-ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/jenkins.sh"]
+# FROM jenkins/jenkins:latest
+
+# USER root
+
+# # Create the .gnupg directory, set ownership and permissions
+# RUN mkdir -p /var/jenkins_home/.gnupg && \
+#     chown -R jenkins:jenkins /var/jenkins_home/.gnupg && \
+#     chmod 700 /var/jenkins_home/.gnupg
+
+# # Update the package list and install dirmngr
+# RUN apt-get update && apt-get install -y dirmngr
+
+# # Clean up APT when done
+# RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# # Switch back to Jenkins user
+# USER jenkins
