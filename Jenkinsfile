@@ -15,8 +15,8 @@ pipeline {
       steps {
         echo "Running performance tests..."
          sh 'k6 run --out influxdb=http://influxdb:8086/k6 scripts/ewoks.js'
-	// sh 'chmod +x run-load-test.sh'
-	// sh './run-load-test.sh'
+	sh 'chmod +x run-load-test.sh'
+	sh './run-load-test.sh'
 	echo "http://localhost:3000/d/k6/hasil-testing?orgId=1&refresh=5s"
       }
     }
