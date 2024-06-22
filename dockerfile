@@ -17,6 +17,16 @@ RUN chown -R jenkins:jenkins /var/jenkins_home/.gnupg && \
 # Clean up APT when done
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN apt-get update && apt-get install -y \
+    wget \
+    unzip \
+    gnupg2 \
+    software-properties-common
+
+# Install Chromium
+RUN apt-get update && apt-get install -y \
+    chromium
+
 # Switch back to Jenkins user
 USER jenkins
 
