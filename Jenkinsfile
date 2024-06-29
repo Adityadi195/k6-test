@@ -5,6 +5,13 @@ pipeline {
             args '-u root' // Jalankan sebagai root untuk dapat menjalankan Chromium
         }
     }
+    stage('Setup Docker') {
+            steps {
+                sh '''
+                docker inspect -f . jenkins-ch-k6:latest || docker pull jenkins-ch-k6:latest
+                '''
+            }
+        }
     stages {
         stage('Run Performance Test') {
             steps {
