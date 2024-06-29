@@ -2,7 +2,6 @@ FROM jenkins/jenkins:latest
 
 USER root
 
-# Install dependencies and Chromium
 RUN apt-get update && apt-get install -y \
     wget \
     gnupg \
