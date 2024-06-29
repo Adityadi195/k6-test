@@ -1,28 +1,19 @@
 pipeline {
-    agent {
-        docker {
-            image 'jenkins-ch-k6:latest' // Nama image Docker yang telah dibangun
-            args '-u root' // Jalankan sebagai root untuk dapat menjalankan Chromium
-        }
-    }
-    stage('Setup Docker') {
-            steps {
-                sh '''
-                docker inspect -f . jenkins-ch-k6:latest || docker pull jenkins-ch-k6:latest
-                '''
-            }
-        }
+    agent any
     stages {
-        stage('Run Performance Test') {
+        stage('Verify K6') {
             steps {
-                echo 'Running performance tests...'
-                sh 'k6 run --out influxdb=http://influxdb:8086/k6 scripts/ewoks.js'
+                echo 'Verifying K6...'
+                sh 'chmod +x setup_k6.sh'
+                sh './setup_k6.sh'
             }
         }
-        stage('Open Chromium') {
+        stage('Performance Testing') {
             steps {
-                echo 'Opening Chromium...'
-                sh 'chromium --headless --disable-gpu --no-sandbox --remote-debugging-port=9222'
+                echo "Running performance tests..."
+                sh 'k6 run --out influxdb=http://influxdb:8086/k6 scripts/testing.js'
+
+                echo "http://localhost:3000/d/k6/hasil-testing?orgId=1&refresh=5s"
             }
         }
     }
