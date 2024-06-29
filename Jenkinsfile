@@ -2,11 +2,10 @@ pipeline {
     agent any
     stages {
         stage('Verify K6') {
-            steps {
-                echo 'Verifying K6...'
-                sh 'chmod +x setup_k6.sh'
-                sh './setup_k6.sh'
-            }
+            docker {
+            image 'jenkins-chromium-k6:latest'
+            args '-u root'
+          }
         }
         stage('Performance Testing') {
             steps {
@@ -16,5 +15,10 @@ pipeline {
                 echo "http://localhost:3000/d/k6/hasil-testing?orgId=1&refresh=5s"
             }
         }
+        stage('Open Chromium') {
+            steps {
+                echo 'Opening Chromium...'
+                sh 'chromium --headless --disable-gpu --no-sandbox --remote-debugging-port=9222'
+            }
     }
 }
