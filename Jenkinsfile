@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'jenkins-chromium-k6:latest' // Nama image Docker yang telah dibangun
+            image 'jenkins-ch-k6:latest' // Nama image Docker yang telah dibangun
             args '-u root' // Jalankan sebagai root untuk dapat menjalankan Chromium
         }
     }
