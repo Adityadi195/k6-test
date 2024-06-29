@@ -51,7 +51,7 @@ services:
     image: jenkins/jenkins:latest
     privileged: true
     user: root
-    build: .
+    build: ./jenkins
     container_name: jenkins
     networks:
       - k6
